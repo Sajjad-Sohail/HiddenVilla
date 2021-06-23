@@ -1,0 +1,46 @@
+﻿@using HiddenVilla_Server.Model
+<div class="card col-3 offset-1" @onclick="(args)=>AmenitySelectionChanged(args,Amenities.AmenitiesName)">
+    <h4 class="text-secondary text-center mt-2">
+        Amenities - @Amenities.Id
+    </h4>
+    <div class="card-body">
+        <span class="">@Amenities.AmenitiesName</span><br />
+        <span class="mt-1">@Amenities.Description</span><br />
+        @if (FirstFragment == null)
+        {
+            <span>Since child content 1 is null, this is displaying</span>
+        }
+        else
+        {
+            <span>@FirstFragment</span>
+        }
+        @if (SecondFragment == null)
+        {
+            <span>Since child content 2 is null, this is displaying</span>
+        }
+        else
+        {
+            <span>@SecondFragment</span>
+        }
+    </div>
+    
+</div>
+
+ 
+@code {
+    [Parameter]
+    public BlazorAmenities Amenities{ get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnAmenitySelection { get; set; }
+    protected async Task AmenitySelectionChanged(MouseEventArgs e,string name)
+    {
+        await OnAmenitySelection.InvokeAsync(name);
+    }
+
+    [Parameter]
+    public RenderFragment FirstFragment { get; set; }
+
+    [Parameter]
+    public RenderFragment SecondFragment { get; set; }
+}

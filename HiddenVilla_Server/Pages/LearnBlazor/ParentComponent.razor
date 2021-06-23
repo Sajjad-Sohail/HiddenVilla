@@ -1,0 +1,27 @@
+﻿@page "/ParentComponent"
+
+<h3 class="text-danger">Parent child Componenet</h3>
+
+<ChildComponent OnClickBtnMethod="ShowMessage" Title="This title is passed as param from parent comp">
+    <ChildContent>
+        Render Fragment from parent! WoHoo!
+    </ChildContent>
+    @*<DangerChildContent>
+        Danger Render Fragment from parent! WoHoo!
+    </DangerChildContent>*@
+
+</ChildComponent>
+<AnotherChildComponent placeholder="Placeholder default">
+
+</AnotherChildComponent>
+ <p><b>@messageText</b></p>
+
+@code{
+    private string messageText = "";
+    private void ShowMessage(MouseEventArgs e)
+    {
+        messageText = "Blazzing text from Child comp into param";
+    }
+
+     
+}

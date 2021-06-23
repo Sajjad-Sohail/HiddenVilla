@@ -1,0 +1,101 @@
+﻿@page "/bindProp"
+@using Model
+<h2 class="bg-light border p-2">
+    First Room
+</h2>
+Room: @blazorRoom.RoomName
+<br />
+Price : @blazorRoom.Price
+<br />
+<input type="number" @bind-value="blazorRoom.Price" @bind-value:event="oninput" />
+<br />
+
+
+<input type="checkbox" @bind-value="blazorRoom.IsActive" checked="@(blazorRoom.IsActive? "Active":null)" /> &nbsp; Is Active
+
+<span>The room is @(blazorRoom.IsActive? "Active":"Inactive")</span>
+<br />
+<select @bind="SelectedRoomProp">
+    @foreach (var prop in blazorRoom.RoomProps)
+    {
+        <option value="@prop.Name">@prop.Name</option>
+    }
+</select>
+<span>The room prop selected is: @SelectedRoomProp</span>
+<table class="table table-responsive-md table-dark">
+    <thead>
+        Available Rooms
+    </thead>
+    <tbody>
+        @foreach (BlazorRoom room in RoomList)
+        {
+            <tr>
+                <td>
+                    <input type="text" @bind-value="room.RoomName" @bind-value:event="oninput" />
+                </td>
+                <td>
+                    <input type="text" @bind-value="room.Price" @bind-value:event="oninput" />
+                </td>
+                @foreach (BlazorRoomProp prop in room.RoomProps)
+                {
+                    <td>@prop.Name - @prop.Value</td>
+                }
+            </tr>
+        }
+
+    </tbody>
+</table>
+<br />
+@foreach (var room in RoomList)
+{
+    <p>@room.RoomName's Price is @room.Price</p>
+}
+@code{
+    List<BlazorRoom> RoomList = new List<BlazorRoom>();
+    string SelectedRoomProp = "";
+    BlazorRoom blazorRoom = new BlazorRoom()
+    {
+        Id = 1,
+        RoomName = "Villa Suite",
+        IsActive = true,
+        Price = 499,
+        RoomProps = new List<Model.BlazorRoomProp>
+    {
+            new BlazorRoomProp{ID=1,Name="Sq Ft",Value="100"},
+            new BlazorRoomProp{ID=2,Name="Occupancy",Value="3"},
+            new BlazorRoomProp{ID=3,Name="Bathroom",Value="Master"},
+
+
+        }
+    };
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        RoomList.Add(new BlazorRoom()
+        {
+            Id = 301,
+            RoomName = "Villa Suite Two Bed Room",
+            IsActive = true,
+            Price = 699,
+            RoomProps = new List<BlazorRoomProp>
+        {
+                new Model.BlazorRoomProp{ ID=1, Name="Sq Ft",Value="150"},
+                new Model.BlazorRoomProp{ ID=2, Name="Occupancy",Value="6"},
+                new Model.BlazorRoomProp{ ID=3, Name="Bathroom",Value="Master"},
+            }
+        });
+        RoomList.Add(new BlazorRoom()
+        {
+            Id = 401,
+            RoomName = "Villa Suite Two Bed Room",
+            IsActive = true,
+            Price = 899,
+            RoomProps = new List<BlazorRoomProp>
+        {
+                new Model.BlazorRoomProp{ ID=1, Name="Sq Ft",Value="350"},
+                new Model.BlazorRoomProp{ ID=2, Name="Occupancy",Value="8"},
+                new Model.BlazorRoomProp{ ID=3, Name="Bathroom",Value="Master And Single"},
+            }
+        });
+    }
+}
