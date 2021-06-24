@@ -1,27 +1,34 @@
 ﻿@page "/ParentComponent"
 
 <h3 class="text-danger">Parent child Componenet</h3>
+<CascadingValue Value="@MessageForGrandChild" Name="MessageFromGrandParent">
+    <CascadingValue Value="@LuckyNumber" Name="LuckyNumberFromGrandParent">
+        <ChildComponent OnClickBtnMethod="ShowMessage" Title="This title is passed as param from parent comp">
+            <ChildContent>
+                Render Fragment from parent! WoHoo!
+            </ChildContent>
+            @*<DangerChildContent>
+                    Danger Render Fragment from parent! WoHoo!
+                </DangerChildContent>*@
 
-<ChildComponent OnClickBtnMethod="ShowMessage" Title="This title is passed as param from parent comp">
-    <ChildContent>
-        Render Fragment from parent! WoHoo!
-    </ChildContent>
-    @*<DangerChildContent>
-        Danger Render Fragment from parent! WoHoo!
-    </DangerChildContent>*@
+        </ChildComponent>
+    </CascadingValue>
+</CascadingValue>
 
-</ChildComponent>
-<AnotherChildComponent placeholder="Placeholder default">
+    <AnotherChildComponent placeholder="Placeholder default">
 
-</AnotherChildComponent>
- <p><b>@messageText</b></p>
+    </AnotherChildComponent>
+    <p><b>@messageText</b></p>
 
-@code{
-    private string messageText = "";
-    private void ShowMessage(MouseEventArgs e)
-    {
-        messageText = "Blazzing text from Child comp into param";
+    @code{
+        private string MessageForGrandChild = "This is a message from grand parent";
+        private string LuckyNumber { get; set; } = "7";
+        private string messageText = "";
+        private void ShowMessage(MouseEventArgs e)
+        {
+            messageText = "Blazzing text from Child comp into param";
+        }
+
+
+
     }
-
-     
-}

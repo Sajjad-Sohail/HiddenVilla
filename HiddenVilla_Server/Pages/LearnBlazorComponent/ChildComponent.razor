@@ -19,6 +19,7 @@
 
     </div>
     <button class="btn btn-danger" @onclick="OnClickBtnMethod">Button to be clicked!</button>
+    <HiddenVilla_Server.Pages.LearnBlazor.GrandChildComponent></HiddenVilla_Server.Pages.LearnBlazor.GrandChildComponent>
 </div>
 @code {
     [Parameter]
@@ -31,4 +32,6 @@
 
     [Parameter]
     public EventCallback<MouseEventArgs> OnClickBtnMethod { get; set; }
+
+    
 }

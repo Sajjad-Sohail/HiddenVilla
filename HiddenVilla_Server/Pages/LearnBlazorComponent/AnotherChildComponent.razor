@@ -3,7 +3,8 @@
     <input id="roomName" placeholder="initial text" @attributes="InputAttributes"  class="form-control"/>
 </div>
 
-@code{
+@code
+{
     //[Parameter]
     //public string Placeholder { get; set; } = "Initial Text";
 
@@ -13,6 +14,5 @@
     //[Parameter]
     //public string MaxLength { get; set; } = "10";
     [Parameter(CaptureUnmatchedValues =true)]
-    public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>()
-   ;
+    public Dictionary<string, object> InputAttributes { get; set; } = new Dictionary<string, object>();
 }
