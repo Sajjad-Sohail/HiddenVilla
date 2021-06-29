@@ -19,6 +19,6 @@ namespace BusinessLayer.Repository.IRepository
 
         public Task<int> DeleteHotelRoom(int roomId);
 
-        public Task<HotelRoomDTO> IsRoomUnique(string name);
+        public Task<HotelRoomDTO> IsRoomUnique(string name,int roomId=0);
     }
 }

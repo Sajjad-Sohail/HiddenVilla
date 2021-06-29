@@ -30,5 +30,7 @@ namespace DataAccess.Data
 
         public DateTime UpdateDate { get; set; }
 
+        public virtual ICollection<HotelRoomImage> HotelRoomImages { get; set; }
+
     }
 }

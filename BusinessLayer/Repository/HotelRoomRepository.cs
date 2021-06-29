@@ -34,7 +34,7 @@ namespace BusinessLayer.Repository
         public async Task<IEnumerable<HotelRoomDTO>> GetAllHotelRooms()
         {
             try {
-                IEnumerable<HotelRoomDTO> hotelRoomDTOs = _mapper.Map<IEnumerable<HotelRoom>, IEnumerable<HotelRoomDTO>>(_db.HotelRooms);
+                IEnumerable<HotelRoomDTO> hotelRoomDTOs = _mapper.Map<IEnumerable<HotelRoom>, IEnumerable<HotelRoomDTO>>(_db.HotelRooms.Include(x => x.HotelRoomImages));
                 return hotelRoomDTOs;
             }
             catch(Exception e)
@@ -45,7 +45,7 @@ namespace BusinessLayer.Repository
         public async Task<HotelRoomDTO> GetHotelRoom(int roomId) {
             try
             {
-                HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom,HotelRoomDTO>(await _db.HotelRooms.FirstOrDefaultAsync(x => x.Id == roomId));
+                HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom,HotelRoomDTO>(await _db.HotelRooms.Include(x=>x.HotelRoomImages).FirstOrDefaultAsync(x => x.Id == roomId));
 
                 return hotelRoom;
             }
@@ -64,13 +64,23 @@ namespace BusinessLayer.Repository
             }
             return 0;
         }
-        public async Task<HotelRoomDTO> IsRoomUnique(string name)
+        public async Task<HotelRoomDTO> IsRoomUnique(string name, int roomId=0)
         {
             try
             {
-                HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom, HotelRoomDTO>(await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()));
+                if(roomId == 0)
+                {
+                    HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom, HotelRoomDTO>(await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()));
 
-                return hotelRoom;
+                    return hotelRoom;
+                }
+                else
+                {
+                    HotelRoomDTO hotelRoom = _mapper.Map<HotelRoom, HotelRoomDTO>(await _db.HotelRooms.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower() && x.Id!=roomId));
+
+                    return hotelRoom;
+                }
+                
             }
             catch (Exception e)
             {
