@@ -1,13 +1,13 @@
-﻿@page "/hotel-amenity/create" 
+﻿@page "/hotel-amenity/create"
 @page "/hotel-amenity/edit/{Id:int}"
 @using Models
 @using BusinessLayer.Repository.IRepository
 @using HiddenVilla_Server.Service.IService
-@inject IHotelAmenityRepository HotelAmenityRepository 
- 
+@inject IHotelAmenityRepository HotelAmenityRepository
+
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
- 
+@attribute [Authorize(Roles = Common.SD.Role_Admin)]
 <div class="row mt-2 mb-5">
     <h3 class="card-title text-info mb-3 ml-3">
         @Title Hotel Amenity
@@ -15,10 +15,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <EditForm Model="HotelAmenityModel" OnValidSubmit="HandleHotelAmenityUpsert" >
+                <EditForm Model="HotelAmenityModel" OnValidSubmit="HandleHotelAmenityUpsert">
                     <DataAnnotationsValidator></DataAnnotationsValidator>
                     <ValidationSummary></ValidationSummary>
-                    <div class="form-group"> 
+                    <div class="form-group">
                         <label>Name</label>
                         <InputText @bind-Value="HotelAmenityModel.Name" class="form-control"></InputText>
                         <ValidationMessage For="()=>HotelAmenityModel.Name"></ValidationMessage>
@@ -37,10 +37,10 @@
                         <label>Icon Style</label>
                         <InputText @bind-Value="HotelAmenityModel.IconStyle" class="form-control"></InputText>
                     </div>
-                     
+
                     <div class="form-group">
                         <button class="btn btn-primary">@Title Room</button>
-                        <NavLink href="hotel-amenity" class="btn btn-secondary" >Back to Index</NavLink>
+                        <NavLink href="hotel-amenity" class="btn btn-secondary">Back to Index</NavLink>
                     </div>
                 </EditForm>
             </div>

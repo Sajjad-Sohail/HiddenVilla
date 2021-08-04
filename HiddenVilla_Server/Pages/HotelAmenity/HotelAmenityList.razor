@@ -1,11 +1,11 @@
 ﻿@page "/hotel-amenity"
 
- 
+
 @using Models
 @using BusinessLayer.Repository.IRepository
 @inject IHotelAmenityRepository HotelAmenityRepository
 @inject IJSRuntime JsRuntime
- 
+@attribute [Authorize(Roles = Common.SD.Role_Admin)]
 <div class="row mt-4">
     <div class="col-8">
         <h4 class="card-title text-info">Hotel Amenities</h4>
@@ -16,7 +16,7 @@
 </div>
 <div class="row mt-4">
     <div class="col-12">
-        <table class="table table-bordered table-hover" >
+        <table class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -35,16 +35,16 @@
                     {
                         <tr>
                             <td>@amenity.Name</td>
-                             <td>@amenity.Description</td>
+                            <td>@amenity.Description</td>
                             <td>@amenity.Timing</td>
                             <td>@amenity.IconStyle</td>
-                             <td>
+                            <td>
 
-                                 <NavLink href="@($"hotel-amenity/edit/{amenity.Id}")" class="btn btn-primary">Edit</NavLink>
-                                 <button class="btn btn-danger" @onclick="()=>HandleDelete(amenity.Id)">Delete</button>
-                             </td>
+                                <NavLink href="@($"hotel-amenity/edit/{amenity.Id}")" class="btn btn-primary">Edit</NavLink>
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete(amenity.Id)">Delete</button>
+                            </td>
                         </tr>
-                       
+
                     }
 
                 }
@@ -52,7 +52,8 @@
                 {
                     <tr>
                         <td colspan="5">No Amenities found</td>
-                    </tr> 
+                    </tr>
+
                 }
             </tbody>
         </table>
